@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auspify Netflix ML Studio — Enterprise Content Intelligence</title>
+  <meta name="description" content="Production-grade Machine Learning platform for content recommendations, binary format classification, audience rating estimation, and catalog segmentation.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Application Bar -->
+  <header class="app-header">
+    <div class="brand-wrapper">
+      <div class="brand-mark">A</div>
+      <div class="brand-info">
+        <span class="brand-name">Auspify ML Studio</span>
+        <span class="brand-divider">/</span>
+        <span class="brand-env">Netflix Content Intelligence</span>
+      </div>
+    </div>
+
+    <div class="header-meta">
+      <div class="status-indicator" id="serverStatusBadge">
+        <span class="status-dot"></span>
+        <span id="statusText">Models Online • 8,787 Titles</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- App Main Content Container -->
+  <main class="app-container">
+
+    <!-- Page Header Intro -->
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Content Intelligence Workspace</h1>
+        <p class="page-desc">Unified machine learning system covering recommendation algorithms, binary format detection, audience maturity classification, and catalog segmentation.</p>
+      </div>
+      <div>
+        <span class="badge badge-neutral">Pipeline v2.1 • Scikit-Learn</span>
+      </div>
+    </div>
+
+    <!-- Segmented Navigation Controls -->
+    <nav class="tabs-container" role="tablist" aria-label="Task Navigation">
+      <button class="tab-btn active" data-tab="tab-task1" role="tab" id="tabBtn1">
+        <span>Recommendations</span>
+        <span class="tab-pill">Task 1</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-task2" role="tab" id="tabBtn2">
+        <span>Format Classifier</span>
+        <span class="tab-pill">Task 2</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-task3" role="tab" id="tabBtn3">
+        <span>Rating Predictor</span>
+        <span class="tab-pill">Task 3</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-task4" role="tab" id="tabBtn4">
+        <span>Segmentation</span>
+        <span class="tab-pill">Task 4</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-analytics" role="tab" id="tabBtn5">
+        <span>Model Evaluation</span>
+        <span class="tab-pill">Benchmarks</span>
+      </button>
+    </nav>
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: TASK 1 - RECOMMENDATION ENGINE                    -->
+    <!-- ======================================================== -->
+    <div class="tab-pane active" id="tab-task1">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-heading">Content-Based Similarity Engine</h2>
+            <p class="card-caption">Calculate top-N recommendations across the catalog using feature-weighted TF-IDF and Cosine Similarity.</p>
+          </div>
+          <div>
+            <span class="badge badge-neutral">Weighting: 50% Genre • 20% Director • 10% Country</span>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-wrapper">
+          <div class="search-field-group">
+            <input type="text" id="recSearchInput" class="search-input-field" placeholder="Search a Netflix title (e.g. Breaking Bad, Stranger Things, Narcos)..." autocomplete="off">
+            <button class="btn btn-primary" id="btnGetRecommendations">
+              <span>Generate Recommendations</span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="searchSuggestions"></div>
+        </div>
+
+        <!-- Quick Test Chips -->
+        <div class="presets-bar">
+          <span class="presets-label">Benchmark Titles:</span>
+          <button class="preset-chip pill-btn" data-title="Breaking Bad">Breaking Bad</button>
+          <button class="preset-chip pill-btn" data-title="Stranger Things">Stranger Things</button>
+          <button class="preset-chip pill-btn" data-title="The Irishman">The Irishman</button>
+          <button class="preset-chip pill-btn" data-title="The Queen's Gambit">The Queen's Gambit</button>
+          <button class="preset-chip pill-btn" data-title="Narcos">Narcos</button>
+          <button class="preset-chip pill-btn" data-title="Ozark">Ozark</button>
+          <button class="preset-chip pill-btn" data-title="Marriage Story">Marriage Story</button>
+        </div>
+
+        <!-- Query Details Banner -->
+        <div class="query-banner" id="queryTitleDetails">
+          <div class="query-banner-title" id="queryName"></div>
+          <div class="query-banner-meta" id="queryMeta"></div>
+        </div>
+
+        <!-- Recommendations Grid -->
+        <div id="recommendationResultsContainer">
+          <div id="recResultsHeader" style="display: none; margin-bottom: 0.85rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted);">
+            Ranked Recommendations:
+          </div>
+          <div class="recommendations-grid" id="recommendationsGrid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: TASK 2 - CONTENT TYPE CLASSIFIER                  -->
+    <!-- ======================================================== -->
+    <div class="tab-pane" id="tab-task2">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-heading">Content Format Classification</h2>
+            <p class="card-caption">Predicts whether content is a Movie or TV Show using a leak-free Linear Support Vector Classifier.</p>
+          </div>
+          <div>
+            <span class="badge badge-neutral">Linear SVM • 100% Test Accuracy</span>
+          </div>
+        </div>
+
+        <!-- Presets -->
+        <div class="presets-bar">
+          <span class="presets-label">Load Template:</span>
+          <button type="button" class="preset-chip" id="presetNolanMovie">Nolan Sci-Fi Movie</button>
+          <button type="button" class="preset-chip" id="presetCrimeSeries">Crime TV Series</button>
+          <button type="button" class="preset-chip" id="presetDocuFilm">Independent Documentary</button>
+        </div>
+
+        <form id="formTask2">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="t2Director">Director</label>
+              <input type="text" id="t2Director" class="form-input" placeholder="e.g. Christopher Nolan" value="Christopher Nolan">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t2Country">Country of Origin</label>
+              <input type="text" id="t2Country" class="form-input" placeholder="e.g. United States" value="United States">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t2Year">Release Year</label>
+              <input type="number" id="t2Year" class="form-input" min="1920" max="2026" value="2023">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t2Rating">Maturity Rating</label>
+              <select id="t2Rating" class="form-select">
+                <option value="PG-13" selected>PG-13</option>
+                <option value="R">R</option>
+                <option value="TV-MA">TV-MA</option>
+                <option value="TV-14">TV-14</option>
+                <option value="TV-PG">TV-PG</option>
+                <option value="PG">PG</option>
+                <option value="TV-Y7">TV-Y7</option>
+                <option value="TV-Y">TV-Y</option>
+                <option value="TV-G">TV-G</option>
+                <option value="G">G</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label" for="t2Genres">Genre Categories (listed_in)</label>
+            <input type="text" id="t2Genres" class="form-input" placeholder="e.g. Action & Adventure, Sci-Fi" value="Action & Adventure, Sci-Fi">
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="btnPredictType">
+            <span>Run Classification</span>
+          </button>
+        </form>
+
+        <!-- Prediction Result Showcase -->
+        <div class="result-callout" id="t2ResultBox">
+          <div class="result-kicker">Predicted Classification Result</div>
+          <div class="result-badge-display" id="t2Badge">MOVIE</div>
+          <p class="result-description" id="t2Explanation"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: TASK 3 - AUDIENCE RATING PREDICTOR                -->
+    <!-- ======================================================== -->
+    <div class="tab-pane" id="tab-task3">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-heading">Audience Maturity Rating Estimation</h2>
+            <p class="card-caption">Multi-class classification predicting audience ratings across 12 distinct age brackets with probability confidence.</p>
+          </div>
+          <div>
+            <span class="badge badge-neutral">Tuned Random Forest • 3-Fold Stratified CV</span>
+          </div>
+        </div>
+
+        <!-- Presets -->
+        <div class="presets-bar">
+          <span class="presets-label">Load Template:</span>
+          <button type="button" class="preset-chip" id="presetT3Kids">Preschool Animation</button>
+          <button type="button" class="preset-chip" id="presetT3Mature">Mature Crime Drama</button>
+          <button type="button" class="preset-chip" id="presetT3Teen">Teen Romance Drama</button>
+        </div>
+
+        <form id="formTask3">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="t3Type">Content Format</label>
+              <select id="t3Type" class="form-select">
+                <option value="Movie" selected>Movie</option>
+                <option value="TV Show">TV Show</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t3Director">Director</label>
+              <input type="text" id="t3Director" class="form-input" placeholder="Director name or unknown" value="Martin Scorsese">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t3Country">Primary Country</label>
+              <input type="text" id="t3Country" class="form-input" placeholder="Producing country" value="United States">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t3Year">Release Year</label>
+              <input type="number" id="t3Year" class="form-input" value="2019" min="1920" max="2026">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t3Duration">Duration</label>
+              <input type="text" id="t3Duration" class="form-input" placeholder="e.g. 209 min or 3 Seasons" value="209 min">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label class="form-label" for="t3Genres">Genre Tags</label>
+            <input type="text" id="t3Genres" class="form-input" placeholder="e.g. Dramas, Crime Movies" value="Dramas, Crime Movies">
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="btnPredictRating">
+            <span>Estimate Maturity Rating</span>
+          </button>
+        </form>
+
+        <!-- Prediction Result Showcase -->
+        <div class="result-callout" id="t3ResultBox">
+          <div class="result-kicker">Predicted Audience Rating</div>
+          <div class="result-badge-display result-badge-rating" id="t3Badge">R</div>
+          
+          <div class="meter-container">
+            <div class="meter-header">
+              <span>Model Probability Confidence</span>
+              <span id="t3ConfidencePct">51.8%</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="t3ConfidenceFill" style="width: 51.8%;"></div>
+            </div>
+          </div>
+
+          <div class="prob-chips-row" id="t3ProbabilitiesBreakdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: TASK 4 - CONTENT SEGMENTATION                     -->
+    <!-- ======================================================== -->
+    <div class="tab-pane" id="tab-task4">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-heading">Unsupervised Catalog Segmentation</h2>
+            <p class="card-caption">Cluster profiles generated via K-Means clustering, verified against silhouette scores across candidate K values.</p>
+          </div>
+          <div>
+            <span class="badge badge-neutral">K-Means • Optimal K = 3</span>
+          </div>
+        </div>
+
+        <!-- 3 Segment Panels -->
+        <div class="cluster-cards-grid" id="clusterCardsContainer">
+          
+          <!-- Cluster 0 -->
+          <div class="cluster-panel">
+            <div class="cluster-panel-header">
+              <span class="cluster-tag cluster-tag-0">Segment 0</span>
+              <h3 class="cluster-title">Modern Feature Films</h3>
+              <p class="cluster-summary-text">Contemporary global cinema, documentaries, and international feature releases.</p>
+            </div>
+            <table class="cluster-table">
+              <tbody>
+                <tr><td>Catalog Volume</td><td>5,519 titles (62.8%)</td></tr>
+                <tr><td>Format Split</td><td>100.0% Movies</td></tr>
+                <tr><td>Mean Release Year</td><td>2015.7</td></tr>
+                <tr><td>Dominant Rating</td><td>TV-MA, TV-14, R</td></tr>
+              </tbody>
+            </table>
+            <div class="cluster-examples-box">
+              <strong>Examples:</strong> Dick Johnson Is Dead, The Starling, Je Suis Karl
+            </div>
+          </div>
+
+          <!-- Cluster 1 -->
+          <div class="cluster-panel">
+            <div class="cluster-panel-header">
+              <span class="cluster-tag cluster-tag-1">Segment 1</span>
+              <h3 class="cluster-title">Binge & Episodic Television</h3>
+              <p class="cluster-summary-text">Multi-season television, serialized crime dramas, and international TV series.</p>
+            </div>
+            <table class="cluster-table">
+              <tbody>
+                <tr><td>Catalog Volume</td><td>2,641 titles (30.1%)</td></tr>
+                <tr><td>Format Split</td><td>99.96% TV Shows</td></tr>
+                <tr><td>Mean Release Year</td><td>2017.0</td></tr>
+                <tr><td>Dominant Rating</td><td>TV-MA, TV-14, TV-PG</td></tr>
+              </tbody>
+            </table>
+            <div class="cluster-examples-box">
+              <strong>Examples:</strong> Ganglands, Midnight Mass, Great British Baking Show
+            </div>
+          </div>
+
+          <!-- Cluster 2 -->
+          <div class="cluster-panel">
+            <div class="cluster-panel-header">
+              <span class="cluster-tag cluster-tag-2">Segment 2</span>
+              <h3 class="cluster-title">Vintage & Classic Vault</h3>
+              <p class="cluster-summary-text">Archival cinema, golden era classics, and retro international productions.</p>
+            </div>
+            <table class="cluster-table">
+              <tbody>
+                <tr><td>Catalog Volume</td><td>627 titles (7.1%)</td></tr>
+                <tr><td>Format Split</td><td>96.3% Movies</td></tr>
+                <tr><td>Mean Release Year</td><td>1988.7 (1940-2000)</td></tr>
+                <tr><td>Dominant Rating</td><td>R, TV-14, PG-13</td></tr>
+              </tbody>
+            </table>
+            <div class="cluster-examples-box">
+              <strong>Examples:</strong> Sankofa, Jeans, Minsara Kanavu, Jaws
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Segment Assignment Tool -->
+        <div style="background-color: var(--bg-subtle); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: 1.25rem;">
+          <h3 style="font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem;">Live Content Segment Assignment</h3>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1rem;">Project arbitrary content metadata through the fitted preprocessor and assign cluster membership.</p>
+
+          <form id="formTask4">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="t4Type">Format</label>
+                <select id="t4Type" class="form-select">
+                  <option value="Movie">Movie</option>
+                  <option value="TV Show">TV Show</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="t4Year">Release Year</label>
+                <input type="number" id="t4Year" class="form-input" value="1975">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="t4Genres">Genre Tags</label>
+                <input type="text" id="t4Genres" class="form-input" value="Classic Movies, Action & Adventure">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="t4Duration">Duration</label>
+                <input type="text" id="t4Duration" class="form-input" value="124 min">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btnAssignCluster">
+              <span>Assign Cluster</span>
+            </button>
+          </form>
+
+          <div id="t4ClusterResultBox" style="display: none; margin-top: 1rem; padding: 0.85rem 1rem; background-color: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-sm);">
+            <div style="font-size: 0.6875rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Cluster Assignment:</div>
+            <div style="font-size: 1.125rem; font-weight: 600; color: var(--text-primary); margin-top: 0.2rem;" id="t4AssignedName"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TAB 5: MODEL EVALUATION & BENCHMARKS (TASKS 1-4)         -->
+    <!-- ======================================================== -->
+    <div class="tab-pane" id="tab-analytics">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-heading">Model Evaluation & Benchmark Suite</h2>
+            <p class="card-caption">Cross-task comparative evaluation across all 4 machine learning pipelines, featuring metric leaderboards, classification reports, and architectural audit artifacts.</p>
+          </div>
+          <div>
+            <span class="badge badge-neutral">Tasks 1 — 4 Audited</span>
+          </div>
+        </div>
+
+        <!-- KPI Executive Summary Cards -->
+        <div class="eval-kpi-grid">
+          <div class="eval-kpi-card" data-filter-target="task1" title="Click to filter by Task 1">
+            <div class="eval-kpi-meta">Task 1 • Recommendations</div>
+            <div class="eval-kpi-value">100.0%</div>
+            <div class="eval-kpi-sub">Precision@10 • 0.9974 NDCG (50 Catalog Titles)</div>
+            <span class="eval-kpi-badge">Weighted Multi-Feature TF-IDF</span>
+          </div>
+
+          <div class="eval-kpi-card" data-filter-target="task2" title="Click to filter by Task 2">
+            <div class="eval-kpi-meta">Task 2 • Binary Classifier</div>
+            <div class="eval-kpi-value">98.75%</div>
+            <div class="eval-kpi-sub">Accuracy (Zero Leakage) • 0.9852 Macro F1</div>
+            <span class="eval-kpi-badge">Linear SVM • 5-Fold CV</span>
+          </div>
+
+          <div class="eval-kpi-card" data-filter-target="task3" title="Click to filter by Task 3">
+            <div class="eval-kpi-meta">Task 3 • Audience Rating</div>
+            <div class="eval-kpi-value">76.79%</div>
+            <div class="eval-kpi-sub">Top-2 Accuracy (12 Classes) • 89.5% Top-3</div>
+            <span class="eval-kpi-badge">Tuned Random Forest</span>
+          </div>
+
+          <div class="eval-kpi-card" data-filter-target="task4" title="Click to filter by Task 4">
+            <div class="eval-kpi-meta">Task 4 • Catalog Clusters</div>
+            <div class="eval-kpi-value">0.3015</div>
+            <div class="eval-kpi-sub">Peak Silhouette • 1.294 Min Davies-Bouldin</div>
+            <span class="eval-kpi-badge">K-Means Optimal (K=3)</span>
+          </div>
+        </div>
+
+        <!-- Sorting & Filtering Controls Bar -->
+        <div class="eval-controls-bar">
+          <div class="eval-filter-group" id="evalTaskFilter">
+            <button type="button" class="eval-filter-chip active" data-task="all">All Tasks (4)</button>
+            <button type="button" class="eval-filter-chip" data-task="task1">Task 1: Recommendations</button>
+            <button type="button" class="eval-filter-chip" data-task="task2">Task 2: Format Classifier</button>
+            <button type="button" class="eval-filter-chip" data-task="task3">Task 3: Audience Rating</button>
+            <button type="button" class="eval-filter-chip" data-task="task4">Task 4: Content Segmentation</button>
+          </div>
+
+          <div class="eval-sort-group">
+            <label for="evalSortSelect" class="eval-sort-label">Sort Tasks By:</label>
+            <select id="evalSortSelect" class="eval-sort-select">
+              <option value="pipeline" selected>Pipeline Order (Task 1 → 4)</option>
+              <option value="performance">Benchmark Score (Highest First)</option>
+              <option value="alphabetical">Task Name (A → Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Container where Task 1, Task 2, Task 3, Task 4 benchmark modules are dynamically injected and sortable -->
+        <div id="evalSectionsContainer" class="eval-sections-container">
+          <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+            <span class="spinner-sm" style="border-top-color: var(--brand-primary); margin-bottom: 0.5rem;"></span>
+            <div>Loading benchmark evaluation suite...</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

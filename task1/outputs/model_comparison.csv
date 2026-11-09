@@ -1,0 +1,3 @@
+Model,Titles Evaluated,Top-K,Precision@10 (%),Format Match (%),Avg Genre Overlap (%),NDCG@10,MRR,Catalog Coverage (%),Unique Titles Surfaced
+Weighted Multi-Feature TF-IDF,50,10,100.0,100.0,96.57,0.9974,1.0,5.45,479
+Standard Combined TF-IDF,50,10,79.4,88.8,56.07,0.8707,0.9133,5.41,475

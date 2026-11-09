@@ -1,0 +1,4 @@
+cluster,title_count,movie_percentage,tv_show_percentage,average_release_year,top_genres,top_countries,common_ratings
+0,5519,100.0,0.0,2015.7,"International Movies, Dramas, Comedies, Documentaries, Independent Movies","United States, India, United Kingdom","TV-MA, TV-14, R"
+1,2641,0.04,99.96,2017.0,"International TV Shows, TV Dramas, TV Comedies, Crime TV Shows, Kids' TV","United States, Pakistan, United Kingdom","TV-MA, TV-14, TV-PG"
+2,627,96.33,3.67,1988.7,"Dramas, Comedies, International Movies, Action & Adventure, Classic Movies","United States, India, United Kingdom","R, TV-14, PG-13"
